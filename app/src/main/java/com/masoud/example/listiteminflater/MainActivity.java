@@ -51,9 +51,13 @@ class mesutAdapter extends ArrayAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View row = inflater.inflate(R.layout.single_row, parent, false);
-
+        //--------baraye bala bordane sorat moge scrool
+        View row = convertView;
+        if (row == null) {
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            row = inflater.inflate(R.layout.single_row, parent, false);
+        }
+//---------------------
         ImageView Myimage = (ImageView) row.findViewById(R.id.imageView);
         TextView myTitle = (TextView) row.findViewById(R.id.textView);
         TextView myDescription = (TextView) row.findViewById(R.id.textView2);
