@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +34,19 @@ public class MainActivity extends AppCompatActivity {
     }
 }
 
+class MyViewHolder{
+    ImageView myImage;
+    TextView myTitle;
+    TextView myDescription;
+    MyViewHolder(View v){
+        myImage= (ImageView) v.findViewById(R.id.imageView);
+        myTitle= (TextView) v.findViewById(R.id.textView);
+        myDescription= (TextView) v.findViewById(R.id.textView2);
+    }
+
+        }
+
+
 class mesutAdapter extends ArrayAdapter {
     Context context;
     int[] image;
@@ -53,18 +67,25 @@ class mesutAdapter extends ArrayAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         //--------baraye bala bordane sorat moge scrool
         View row = convertView;
+        MyViewHolder holder=null;
+
         if (row == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             row = inflater.inflate(R.layout.single_row, parent, false);
+            holder=new MyViewHolder(row);
+            row.setTag(holder);
+            Log.d("Vivz","create new row");
+        }
+        else {
+            holder= (MyViewHolder) row.getTag();
+            Log.d("Vivz","stuff");
         }
 //---------------------
-        ImageView Myimage = (ImageView) row.findViewById(R.id.imageView);
-        TextView myTitle = (TextView) row.findViewById(R.id.textView);
-        TextView myDescription = (TextView) row.findViewById(R.id.textView2);
 
-        Myimage.setImageResource(image[position]);
-        myTitle.setText(titleArray[position]);
-        myDescription.setText(descriptionArray[position]);
+
+        holder.myImage.setImageResource(image[position]);
+        holder.myTitle.setText(titleArray[position]);
+        holder.myDescription.setText(descriptionArray[position]);
 
         return row;
     }
